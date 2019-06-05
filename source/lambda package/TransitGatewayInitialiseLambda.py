@@ -95,10 +95,13 @@ def lambda_handler(event, context):
     responseData = {}
     responseData['data'] = 'Success'
     if event['RequestType'] == 'Create':
-        resp = add_route_tgw_nh(VPC0_route_table_id, defroutecidr, transit_gateway_id)
-        logger.info("Got response to route update on VPC0 {} ".format(resp))
-        resp1 = add_route_tgw_nh(VPC1_route_table_id, defroutecidr, transit_gateway_id)
-        logger.info("Got response to route update on VPC1 {} ".format(resp1))
+        if VPC0_route_table_id != 'Null':
+            resp = add_route_tgw_nh(VPC0_route_table_id, defroutecidr, transit_gateway_id)
+            logger.info("Got response to route update on VPC0 {} ".format(resp))
+        if VPC0_route_table_id != 'Null':
+            resp1 = add_route_tgw_nh(VPC1_route_table_id, defroutecidr, transit_gateway_id)
+            logger.info("Got response to route update on VPC1 {} ".format(resp1))
+        
         res2 = add_route_tgw_nh(toTGWRouteTable, vnetroutecidr, transit_gateway_id)
         logger.info("Got response to route update on SecVPC {} ".format(res2))
 
